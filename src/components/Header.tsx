@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Flex, Button, Image, Text, Heading } from "@chakra-ui/react";
+import { Box, Flex, Button, Image, Heading } from "@chakra-ui/react";
 
 import mobileLogo from "../assets/logo-mobile.svg";
 import chevronDown from "../assets/icon-chevron-down.svg";
