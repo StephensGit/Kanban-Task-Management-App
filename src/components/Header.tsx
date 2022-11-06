@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <Box
       px="16px"
-      bg="#2B2C37"
+      bg="darkGrey"
       height="64px"
       display="flex"
       alignItems="center"
@@ -21,7 +21,7 @@ const Header = () => {
         <Image src={mobileLogo} boxSize="25px" objectFit="cover" mr="16px" />
         <Heading
           as="h1"
-          color="#FFFFFF"
+          color="white"
           fontSize="18px"
           fontWeight="700"
           lineHeight="22.68px"
@@ -39,7 +39,7 @@ const Header = () => {
 
       <Flex alignItems="center">
         <Button
-          bg="#635FC7"
+          bg="mainPurple"
           width="48px"
           height="32px"
           borderRadius="24px"
