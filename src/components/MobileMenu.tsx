@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  Button,
   Image,
   ListItem,
   Modal,
@@ -11,7 +10,6 @@ import {
   ModalFooter,
   ModalBody,
   Switch,
-  Text,
   UnorderedList,
   useColorMode,
 } from "@chakra-ui/react";
