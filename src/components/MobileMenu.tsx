@@ -18,12 +18,10 @@ import iconBoardWhite from "../assets/icon-board-white.svg";
 import iconBoardPurple from "../assets/icon-board-purple.svg";
 import iconDarkMode from "../assets/icon-dark-theme.svg";
 import iconLightMode from "../assets/icon-light-theme.svg";
-interface MobileMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
 
-const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
+import { ModalProps } from "../interfaces/modal";
+
+const MobileMenu = ({ isOpen, onClose }: ModalProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
   console.log(colorMode, "colorMode");
 
