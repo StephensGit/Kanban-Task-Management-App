@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
 
-import NewBoard from "./NewBoard";
+import NewBoard from "./NewBoardModal";
 const MainBoard = () => {
   const { isOpen, onOpen: openMainBoardModal, onClose } = useDisclosure();
   return (
@@ -33,6 +33,8 @@ const MainBoard = () => {
         </Text>
         <Button
           bg="mainPurple"
+          _hover={{ bg: "purpleHover" }}
+          _active={{ bg: "mainPurple" }}
           color="white"
           width="70%"
           height="48px"
