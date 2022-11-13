@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { SetStateAction, useEffect, useRef, useState } from "react";
 
 import {
   Box,
@@ -17,14 +17,15 @@ import {
 
 import iconCross from "../assets/icon-cross.svg";
 
-import { ModalProps } from "../interfaces/modal";
+import { BoardsType, ModalProps, ColumnType } from "../interfaces/modal";
 
 const NewBoard = ({ isOpen, onClose }: ModalProps) => {
   const [boardName, setBoardName] = useState("");
-  const [columnInputField, setColumnNameInputField] = useState([
-    { columnName: "" },
-  ]);
-  const [boards, setBoards] = useState([{}]);
+  const [columnInputField, setColumnNameInputField] = useState<ColumnType[]>(
+    []
+  );
+  const [boards, setBoards] = useState<BoardsType[]>([]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const addColumn = (e: any) => {
     setColumnNameInputField([...columnInputField, { columnName: "" }]);
@@ -46,14 +47,18 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const data: any = { board: boardName, columns: columnInputField };
-    setBoards((prev) => [...prev, { data }]);
+    setBoards((prev: any) => {
+      return [...prev, { data }];
+    });
     setBoardName("");
     setColumnNameInputField([{ columnName: "" }]);
+    console.log(boards, "boards");
   };
 
   useEffect(() => {
-    // console.log(boards, "boards");
-  }, [boards, setBoards]);
+    console.log(boards, "boards");
+    inputRef?.current?.focus();
+  }, [boards, columnInputField, setColumnNameInputField]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -125,6 +130,11 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
                         name="columnName"
                         value={column.columnName}
                         onChange={(event) => handleColumnChange(event, index)}
+                        ref={
+                          index === columnInputField.length - 1
+                            ? inputRef
+                            : null
+                        }
                         type="text"
                       />
                       {index !== 0 && columnInputField?.length > 1 && (
@@ -143,6 +153,7 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
                 {columnInputField?.length < 4 && (
                   <Button
                     bg="white"
+                    _hover={{ backgroundColor: "lightGrey" }}
                     color="mainPurple"
                     width={{ base: "295px", sm: "295px", md: "416px" }}
                     height={10}
