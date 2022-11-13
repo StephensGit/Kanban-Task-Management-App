@@ -33,6 +33,8 @@ const MainBoard = () => {
         </Text>
         <Button
           bg="mainPurple"
+          _hover={{ bg: "purpleHover" }}
+          _active={{ bg: "mainPurple" }}
           color="white"
           width="70%"
           height="48px"

@@ -56,6 +56,8 @@ const Header = () => {
         <Flex alignItems="center">
           <Button
             bg="mainPurple"
+            _hover={{ bg: "purpleHover" }}
+            _active={{ bg: "mainPurple" }}
             width="48px"
             height="32px"
             borderRadius="24px"

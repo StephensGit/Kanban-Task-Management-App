@@ -10,47 +10,50 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
-  useColorMode,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  VStack,
 } from "@chakra-ui/react";
 
 import iconCross from "../assets/icon-cross.svg";
 
-import { ModalProps, ColumnName } from "../interfaces/modal";
+import { ModalProps } from "../interfaces/modal";
 
 const NewBoard = ({ isOpen, onClose }: ModalProps) => {
   const [boardName, setBoardName] = useState("");
-  const [column, setColumnName] = useState("");
-  const [columns, setColumns] = useState<string[]>([]);
-  const columnInput: any = useRef(null);
+  const [columnInputField, setColumnNameInputField] = useState([
+    { columnName: "" },
+  ]);
+  const [boards, setBoards] = useState([{}]);
+
+  const addColumn = (e: any) => {
+    setColumnNameInputField([...columnInputField, { columnName: "" }]);
+  };
+
+  const handleColumnChange = (e: any, i: number) => {
+    const { name, value } = e.target;
+    const columns: any = [...columnInputField];
+    columns[i][name] = value;
+    setColumnNameInputField(columns);
+  };
+
+  const handleRemoveColumn = (index: number) => {
+    const columns = [...columnInputField];
+    columns.splice(index, 1);
+    setColumnNameInputField(columns);
+  };
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(boardName, columns);
+    const data: any = { board: boardName, columns: columnInputField };
+    setBoards((prev) => [...prev, { data }]);
     setBoardName("");
-    setColumnName("");
-  };
-
-  const handleAdd = (e: any) => {
-    e.preventDefault();
-    const col: string = column.trim();
-
-    if (col && !columns.includes(col)) {
-      setColumns((prevColumns) => [...prevColumns, column]);
-    }
-    setColumnName("");
-    columnInput.current.focus();
+    setColumnNameInputField([{ columnName: "" }]);
   };
 
   useEffect(() => {
-    // console.log(boardName, column);
-  }, [boardName]);
+    console.log(boards, "boards");
+  }, [boards, setBoards]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -75,6 +78,7 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
 
         <ModalBody px={4} m={0}>
           <form onSubmit={handleSubmit}>
+            {/* Board Name */}
             <FormControl>
               <FormLabel
                 color="white"
@@ -98,57 +102,73 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
               />
             </FormControl>
             <Box mt="24px">
+              {/* Columns  */}
               <FormControl>
                 <FormLabel
                   color="white"
                   fontSize="12px"
                   fontWeight="700"
                   lineHeight="15.12px"
+                  htmlFor="columnName"
                 >
                   Board Columns
                 </FormLabel>
-                <HStack>
-                  <Input
-                    width={{ base: "264px", sm: "264px", md: "385px" }}
-                    color="white"
-                    borderColor="#828FA355"
-                    _focusVisible={{ borderColor: "#828FA355" }}
-                    _hover={{ borderColor: "#828FA355" }}
-                    id="column"
-                    value={column}
-                    ref={columnInput}
-                    onChange={({ target }) => setColumnName(target.value)}
-                    type="text"
-                  />
-                  <Image src={iconCross} cursor="pointer" />
-                </HStack>
+                {columnInputField?.map((column, index) => {
+                  return (
+                    <HStack mt={4} key={index}>
+                      <Input
+                        width={{ base: "264px", sm: "264px", md: "385px" }}
+                        color="white"
+                        borderColor="#828FA355"
+                        _focusVisible={{ borderColor: "#828FA355" }}
+                        _hover={{ borderColor: "#828FA355" }}
+                        name="columnName"
+                        value={column.columnName}
+                        onChange={(event) => handleColumnChange(event, index)}
+                        type="text"
+                      />
+                      {index !== 0 && columnInputField?.length > 1 && (
+                        <Image
+                          src={iconCross}
+                          cursor="pointer"
+                          onClick={() => handleRemoveColumn(index)}
+                        />
+                      )}
+                    </HStack>
+                  );
+                })}
               </FormControl>
+              {/* Add Column Btn  */}
               <FormControl>
-                <Button
-                  bg="white"
-                  color="mainPurple"
-                  width={{ base: "295px", sm: "295px", md: "416px" }}
-                  height={10}
-                  borderRadius="24px"
-                  mt={4}
-                  onClick={handleAdd}
-                >
-                  + Add New Column
-                </Button>
+                {columnInputField?.length < 4 && (
+                  <Button
+                    bg="white"
+                    color="mainPurple"
+                    width={{ base: "295px", sm: "295px", md: "416px" }}
+                    height={10}
+                    borderRadius="24px"
+                    mt={4}
+                    onClick={addColumn}
+                  >
+                    + Add New Column
+                  </Button>
+                )}
               </FormControl>
             </Box>
-
+            {/* Create new board btn */}
             <FormControl>
               <Button
                 bg="mainPurple"
+                _hover={{ bg: "purpleHover" }}
+                _active={{ bg: "mainPurple" }}
                 color="white"
                 width={{ base: "295px", sm: "295px", md: "416px" }}
                 height={10}
                 borderRadius="24px"
                 mt={6}
                 mb={8}
-                _hover={{ bg: "purpleHover" }}
                 type="submit"
+                onClick={onClose}
               >
                 Create New Board
               </Button>
