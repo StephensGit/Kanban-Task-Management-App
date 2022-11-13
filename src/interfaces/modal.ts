@@ -6,3 +6,11 @@ export interface ModalProps {
 export interface ColumnName {
   col?: string;
 }
+
+export interface ColumnType {
+  columnName: string;
+}
+
+export interface BoardsType {
+  [key: string]: ColumnType;
+}
