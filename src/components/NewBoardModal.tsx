@@ -52,7 +52,7 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
   };
 
   useEffect(() => {
-    console.log(boards, "boards");
+    // console.log(boards, "boards");
   }, [boards, setBoards]);
 
   return (
