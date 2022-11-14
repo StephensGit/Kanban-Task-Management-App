@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Box,
@@ -16,11 +16,27 @@ import chevronDown from "../assets/icon-chevron-down.svg";
 import addIcon from "../assets/icon-add-task-mobile.svg";
 import threeDots from "../assets/icon-vertical-ellipsis.svg";
 
-const Header = () => {
+const Header = ({
+  boardInfo,
+  isOpenCreateBoardModal,
+  openCreateBoardModal,
+  closeCreateBoardModal,
+}: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [heading, setHeading] = useState();
+
+  useEffect(() => {
+    console.log(boardInfo, "boardInfo inside Header");
+  }, [boardInfo]);
+
   return (
     <>
-      <MobileMenu isOpen={isOpen} onClose={onClose} />
+      <MobileMenu
+        isOpen={isOpen}
+        onClose={onClose}
+        boardInfo={boardInfo}
+        openCreateBoardModal={openCreateBoardModal}
+      />
 
       <Box
         px="16px"
@@ -41,7 +57,9 @@ const Header = () => {
             cursor="pointer"
             onClick={onOpen}
           >
-            No Board Found
+            {boardInfo?.length === 0
+              ? "No Board Found"
+              : boardInfo[0]?.data?.board}
           </Heading>
           <Image
             src={chevronDown}

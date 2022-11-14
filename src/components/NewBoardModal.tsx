@@ -17,9 +17,9 @@ import {
 
 import iconCross from "../assets/icon-cross.svg";
 
-import { BoardsType, ModalProps, ColumnType } from "../interfaces/modal";
+import { BoardsType, ModalProps1, ColumnType } from "../interfaces/modal";
 
-const NewBoard = ({ isOpen, onClose }: ModalProps) => {
+const NewBoard = ({ isOpen, onClose, getBoardInfo }: ModalProps1) => {
   const [boardName, setBoardName] = useState("");
   const [columnInputField, setColumnNameInputField] = useState<ColumnType[]>(
     []
@@ -52,11 +52,15 @@ const NewBoard = ({ isOpen, onClose }: ModalProps) => {
     });
     setBoardName("");
     setColumnNameInputField([{ columnName: "" }]);
-    console.log(boards, "boards");
+    // console.log(boards, "boards");
   };
 
   useEffect(() => {
-    console.log(boards, "boards");
+    getBoardInfo(boards);
+  }, [boards, getBoardInfo]);
+
+  useEffect(() => {
+    // console.log(boards, "boards");
     inputRef?.current?.focus();
   }, [boards, columnInputField, setColumnNameInputField]);
 
