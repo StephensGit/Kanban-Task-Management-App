@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Image,
@@ -12,18 +12,30 @@ import {
   Switch,
   UnorderedList,
   useColorMode,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import iconBoardWhite from "../assets/icon-board-white.svg";
 import iconBoardPurple from "../assets/icon-board-purple.svg";
+import iconBoardGrey from "../assets/icon-board-grey.svg";
 import iconDarkMode from "../assets/icon-dark-theme.svg";
 import iconLightMode from "../assets/icon-light-theme.svg";
 
-import { ModalProps } from "../interfaces/modal";
+import { BoardInfo2Type, ModalProps } from "../interfaces/modal";
 
-const MobileMenu = ({ isOpen, onClose }: ModalProps) => {
+import NewBoard from "./NewBoardModal";
+
+const MobileMenu = ({
+  isOpen,
+  onClose,
+  boardInfo,
+  openCreateBoardModal,
+}: any) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  console.log(colorMode, "colorMode");
+
+  useEffect(() => {
+    console.log(boardInfo, "boardInfo test");
+  }, [boardInfo]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -37,7 +49,7 @@ const MobileMenu = ({ isOpen, onClose }: ModalProps) => {
           m={0}
           px={4}
         >
-          ALL BOARDS (3)
+          {`ALL BOARDS (${boardInfo.length})`}
         </ModalHeader>
 
         <ModalBody
@@ -48,40 +60,33 @@ const MobileMenu = ({ isOpen, onClose }: ModalProps) => {
           m={0}
         >
           <UnorderedList m={0} color="mediumGrey">
-            <ListItem
-              bg="mainPurple"
-              color="white"
-              px={4}
-              borderRightRadius={25}
-              maxW="70%"
-              height="48px"
-              display="flex"
-              alignItems="center"
-              cursor="pointer"
-            >
-              <Image mr="13px" boxSize="16px" src={iconBoardWhite} />
-              Platform Launch
-            </ListItem>
-            <ListItem
-              display="flex"
-              alignItems="center"
-              height="48px"
-              px={4}
-              cursor="pointer"
-            >
-              <Image mr="13px" boxSize="16px" src={iconBoardWhite} />
-              Marketing Plan
-            </ListItem>
-            <ListItem
-              display="flex"
-              alignItems="center"
-              height="48px"
-              px={4}
-              cursor="pointer"
-            >
-              <Image mr="13px" boxSize="16px" src={iconBoardWhite} />
-              Roadmap
-            </ListItem>
+            {boardInfo?.length > 0 &&
+              boardInfo?.map((board: any, index: number) => {
+                return (
+                  <ListItem
+                    key={index}
+                    bg={index === 0 ? "mainPurple" : "transparent"}
+                    _hover={{ bg: "purpleHover" }}
+                    color={index === 0 ? "white" : "mediumGrey"}
+                    px={4}
+                    borderRightRadius={25}
+                    maxW="70%"
+                    height="48px"
+                    display="flex"
+                    alignItems="center"
+                    cursor="pointer"
+                    mt={2}
+                  >
+                    <Image
+                      mr="13px"
+                      boxSize="16px"
+                      src={index === 0 ? iconBoardWhite : iconBoardGrey}
+                      _hover={{ src: iconBoardWhite }}
+                    />
+                    {board?.data?.board}
+                  </ListItem>
+                );
+              })}
             <ListItem
               color="mainPurple"
               display="flex"
@@ -90,8 +95,8 @@ const MobileMenu = ({ isOpen, onClose }: ModalProps) => {
               px={4}
               cursor="pointer"
             >
-              <Image mr="13px" boxSize="16px" src={iconBoardPurple} />+ Create
-              New Board
+              <Image mr="13px" boxSize="16px" src={iconBoardPurple} />
+              <span onClick={openCreateBoardModal}>+ Create New Board</span>
             </ListItem>
           </UnorderedList>
         </ModalBody>

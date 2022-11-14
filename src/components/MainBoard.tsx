@@ -2,11 +2,22 @@ import React from "react";
 import { Box, Button, Text, useDisclosure } from "@chakra-ui/react";
 
 import NewBoard from "./NewBoardModal";
-const MainBoard = () => {
-  const { isOpen, onOpen: openMainBoardModal, onClose } = useDisclosure();
+
+import { BoardInfoType } from "../interfaces/modal";
+
+const MainBoard = ({
+  getBoardInfo,
+  isOpenCreateBoardModal,
+  openCreateBoardModal,
+  closeCreateBoardModal,
+}: any) => {
   return (
     <>
-      <NewBoard isOpen={isOpen} onClose={onClose} />
+      <NewBoard
+        isOpen={isOpenCreateBoardModal}
+        onClose={closeCreateBoardModal}
+        getBoardInfo={getBoardInfo}
+      />
 
       <Box
         height="auto"
@@ -44,7 +55,7 @@ const MainBoard = () => {
           fontWeight="700"
           lineHeight="18.9px"
           borderRadius="24px"
-          onClick={openMainBoardModal}
+          onClick={openCreateBoardModal}
         >
             + Create New Board  
         </Button>
