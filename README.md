@@ -1,6 +1,6 @@
-# News-Homepage
+# Kanban TAsk MAnagement App
 
-This is a solution to the frontend mentors [challenge]: (https://www.frontendmentor.io/challenges/news-homepage-H6SWTa1MFl/hub/news-homepage-aGOcCw-m0w)
+This is a ongoing project I'm working on from frontend mentors [challenge]: (https://www.frontendmentor.io/challenges/kanban-task-management-web-app-wgQLt-HlbB)
 
 ## Table of contents
 
@@ -17,14 +17,13 @@ This is a solution to the frontend mentors [challenge]: (https://www.frontendmen
 
 ### The challenge
 
-The challenge is to build out this landing page and get it looking as close to the design as possible. 
-There is a folder called "design" containing the images I used to replicate the landing page.
-I built this using React, Typescript & Chakra UI.
+The challenge is to build out the entire application to get it looking as close to the design as possible. 
+I've decided to build it using using React, Typescript & Chakra UI.
 
 
 ### Links
 
-- Live Site URL: [https://news-homepage-fm.netlify.app/]
+- Live Site URL: []
 
 ## My process
 
@@ -40,5 +39,4 @@ I built this using React, Typescript & Chakra UI.
 - Linkedin - [Stephen Moran](https://www.linkedin.com/in/stephen-moran-/)
 - Github - [StephensGit](https://github.com/StephensGit)
 
-## Screenshot - Mobile version
-![Fylo landing page](https://user-images.githubusercontent.com/45046901/199576335-e35efec4-e5a9-46e9-b18b-3641a2ecfc12.png)
+## Screenshot - Will update when finsihed
